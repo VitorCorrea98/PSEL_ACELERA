@@ -24,10 +24,10 @@ model Accounts {
 }
 
 model Transactions {
-  transactionId Int @id
+  transactionId String @id @default(uuid())
   account       Accounts @relation(references: [cpf], fields: [accountId])
   accountId     String
   date          DateTime
-  value         Int
-  cashback      Int
+  value         Float
+  cashback      Float @default(0.00)
 }

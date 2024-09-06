@@ -1,7 +1,8 @@
 import { IAccountUpdate } from './IAccounts';
 
 export interface readAccounts<T> {
-  getAll(): Promise<T[]>;
+  getAll(): Promise<T[]>
+  getByDocument(_cpf: string): Promise<T | null>
 }
 
 export interface modifyAccounts<T> {

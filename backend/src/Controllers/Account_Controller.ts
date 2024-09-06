@@ -24,13 +24,13 @@ export default class AccountController {
 
   public async updateAccount(req: Request, res: Response) {
     const account = req.body;
-    const cpf = '12345678900';
+    const cpf = '123456789-00';
     const { status, data } = await this.accountService.updateAccount(account, cpf);
     return res.status(mapHttpStatus(status)).json(data);
   }
 
   public async deleteAccount(_req: Request, res: Response) {
-    const cpf = '12345678900';
+    const cpf = '123456789-00';
     const { status, data } = await this.accountService.deleteAccount(cpf);
     return res.status(mapHttpStatus(status)).json(data);
   }

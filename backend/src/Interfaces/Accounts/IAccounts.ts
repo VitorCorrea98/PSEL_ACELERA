@@ -1,5 +1,5 @@
 /* eslint-disable semi */
-export default interface IAccounts {
+export interface IAccounts {
   id?: number;
   cpf: string;
   name: string;
@@ -12,5 +12,4 @@ export interface IAccountUpdate {
   name: string
   email: string
   password: string
-  status: boolean
 }

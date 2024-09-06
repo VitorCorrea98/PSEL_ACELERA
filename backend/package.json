@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsnd --watch  \"./src/**\" --transpile-only ./src/Server.ts",
+    "predev": "npm run db:reset",
     "seed": "cd src/database && npx prisma db seed",
     "migrate": "cd src/database && npx prisma db push",
-    "db:reset": "npm rum migrate && npm run seed"
+    "db:reset": "cd src/database && npx prisma db push --force-reset && npx prisma db seed"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -23,9 +24,11 @@
     "cpf-cnpj-validator": "^1.0.3",
     "express": "^4.19.2",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^5.18.0"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.9",
     "eslint": "7.32.0",
     "eslint-config-trybe-backend-typescript": "^1.0.0",

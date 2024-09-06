@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function */
 
 import { PrismaClient } from '@prisma/client';
+import { randomUUID } from 'crypto';
 
 const prisma = new PrismaClient();
 async function main() {
@@ -8,13 +9,24 @@ async function main() {
     update: {},
     where: { email: 'teste@teste.com' },
     create: {
-      cpf: '111111111-11',
+      cpf: '123456789-00',
       email: 'teste@teste.com',
       name: 'User Test',
       password: 'testando',
     },
   });
-  console.log({ accounts });
+  const uuid = randomUUID();
+  const transactions = await prisma.transactions.upsert({
+    update: {},
+    where: { transactionId: uuid },
+    create: {
+      accountId: '123456789-00',
+      date: new Date(),
+      transactionId: uuid,
+      value: 200,
+    },
+  });
+  console.log({ accounts, transactions });
 }
 main()
   .then(async () => {
