@@ -1,5 +1,12 @@
 {
   // ...
-  "extends": "trybe-backend-typescript"
+  "extends": "trybe-backend-typescript",
+  "rules": {
+    "no-useless-constructor": "off",
+    "no-empty-function": "off",
+    "no-unused-vars": "off",
+    "lines-between-class-members": "off",
+    "prefer-arrow-callback": "error"
+  }
   // ...
 }

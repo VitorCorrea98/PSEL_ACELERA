@@ -1,6 +1,5 @@
-/* eslint-disable semi */
 export interface IAccounts {
-  id?: number;
+  id: string;
   cpf: string;
   name: string;
   email: string;

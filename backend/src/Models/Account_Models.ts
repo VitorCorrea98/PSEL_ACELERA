@@ -1,34 +1,39 @@
-import { PrismaClient } from '@prisma/client';
-import { IAccountModel } from '../Interfaces/Accounts/AccountsModel';
 import { IAccounts, IAccountUpdate } from '../Interfaces/Accounts/IAccounts';
+import { IAccountModel } from '../Interfaces/Accounts/AccountsModel';
+import { ORMModelAccounts } from '../Interfaces/ORM/Prisma/Accounts/CRUD';
+import PrismaAccounts from '../ORM/Accounts_Implements';
 
 export default class AccountModel implements IAccountModel {
-  public prisma: PrismaClient
-  
-  constructor() {
-    this.prisma = new PrismaClient();
+  private static isInstance: AccountModel
+
+  private constructor(private accountsRespository: ORMModelAccounts = new PrismaAccounts()) {}
+
+  static create() {
+    if (!AccountModel.isInstance) {
+      AccountModel.isInstance = new AccountModel();
+      return AccountModel.isInstance;
+    }
+    return AccountModel.isInstance;
   }
-  
+
   public async getAll(): Promise<IAccounts[]> {
-    const accounts = await this.prisma.accounts.findMany({ include: { transactions: true } });
+    const accounts = await this.accountsRespository.findMany();
     
     return accounts;
   }
   
   public async getByDocument(cpf: string): Promise<IAccounts | null> {
-    const account = await this.prisma.accounts.findUnique({ where: { cpf } });
+    const account = await this.accountsRespository.findByCPF(cpf);
     
     if (!account) {
       return null;
     }
-    return account; 
+    return account;
   }
   
   public async createAccount(account: IAccounts): Promise<IAccounts | null> {
     try {
-      const createdAccount = await this.prisma.accounts.create({
-        data: account,
-      });
+      const createdAccount = await this.accountsRespository.create(account);
       return createdAccount;
     } catch (error) {
       console.log({ error });
@@ -38,8 +43,8 @@ export default class AccountModel implements IAccountModel {
   
   public async updateAccount(account: IAccountUpdate, cpf: string): Promise<IAccounts | null> {
     try {
-      const updatedAccount = await this.prisma
-        .accounts.update({ where: { cpf }, data: account });
+      const updatedAccount = await this.accountsRespository
+        .update(account, cpf);
       
       return updatedAccount;
     } catch (error) {
@@ -50,8 +55,7 @@ export default class AccountModel implements IAccountModel {
   
   public async deleteAccount(cpf: string): Promise<IAccounts | null> {
     try {
-      const deletedAccount = await this.prisma.accounts
-        .update({ where: { cpf }, data: { status: false } });
+      const deletedAccount = await this.accountsRespository.delete(cpf);
       
       return deletedAccount;
     } catch (error) {

@@ -4,8 +4,9 @@
   "main": "index.js",
   "module": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "tsnd --watch  \"./src/**\" --transpile-only ./src/Server.ts",
+    "lint": "npx eslint ./src --ext .ts",
     "predev": "npm run db:reset",
     "seed": "cd src/database && npx prisma db seed",
     "migrate": "cd src/database && npx prisma db push",
@@ -21,17 +22,22 @@
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "@types/express": "^4.17.21",
-    "cpf-cnpj-validator": "^1.0.3",
     "express": "^4.19.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "prisma": "^5.18.0"
+    "prisma": "^5.18.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@swc/core": "^1.7.24",
+    "@swc/jest": "^0.2.36",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/mocha": "^10.0.7",
     "@types/node": "^20.14.9",
     "eslint": "7.32.0",
     "eslint-config-trybe-backend-typescript": "^1.0.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.4",
     "prisma": "^5.16.1",
     "ts-node": "^10.9.2",

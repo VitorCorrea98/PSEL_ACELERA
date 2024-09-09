@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
+import { uuid } from 'uuidv4';
 import { ITransactionModel } from '../Interfaces/Transactions/TransactionsModel';
-import ITransactions from '../Interfaces/Transactions/ITransactions';
+import { ITransactions } from '../Interfaces/Transactions/ITransactions';
 
 export default class TransactionModel implements ITransactionModel {
   public prisma
@@ -19,7 +20,7 @@ export default class TransactionModel implements ITransactionModel {
     Promise<ITransactions | null> {
     try {
       const transaction = await this.prisma.transactions
-      .create({ data: { accountId: cpf, value, date } });
+      .create({ data: { document: cpf, value, date, cashback: 0.00, transactionId: uuid() } });
       
       return transaction; 
     } catch (error) {

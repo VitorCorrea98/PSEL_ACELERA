@@ -1,5 +1,4 @@
-import { readAccounts, modifyAccounts } from './CRUD';
+import { ICRUDModel } from './CRUD';
 import { IAccounts } from './IAccounts';
 
-export type IAccountModel = readAccounts<IAccounts>
-  & modifyAccounts<IAccounts>
+export type IAccountModel = ICRUDModel<IAccounts>

@@ -14,20 +14,20 @@ datasource db {
 }
 
 model Accounts {
-  id           Int @id @default(autoincrement())
+  id           String @id
   cpf          String @unique
   name         String
   email        String @unique
   password     String
-  status       Boolean @default(true)
+  status       Boolean
   transactions Transactions[]
 }
 
 model Transactions {
-  transactionId String @id @default(uuid())
-  account       Accounts @relation(references: [cpf], fields: [accountId])
-  accountId     String
+  transactionId String @id
+  account       Accounts @relation(references: [cpf], fields: [document])
+  document      String
   date          DateTime
   value         Float
-  cashback      Float @default(0.00)
+  cashback      Float
 }

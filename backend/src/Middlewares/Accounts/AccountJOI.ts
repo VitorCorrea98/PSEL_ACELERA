@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import IAccounts from '../../Interfaces/Accounts/IAccounts';
+import { IAccounts } from '../../Interfaces/Accounts/IAccounts';
 
 export default class AccountJOI {
   private joi

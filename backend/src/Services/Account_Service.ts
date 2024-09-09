@@ -1,17 +1,28 @@
+import { IAccountModel } from '../Interfaces/Accounts/AccountsModel';
 import { IAccounts, IAccountUpdate } from '../Interfaces/Accounts/IAccounts';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 import AccountModel from '../Models/Account_Models';
 
 export default class AccountService {
-  public accountModel: AccountModel
+  static isInstance: AccountService;
+
+  private constructor(private accountModel: IAccountModel = AccountModel.create()) {}
   
-  constructor() {
-    this.accountModel = new AccountModel();
+  static create() {
+    if (!AccountService.isInstance) {
+      AccountService.isInstance = new AccountService();
+      return AccountService.isInstance;
+    }
+    return this.isInstance;
   }
-  
+
   public async getAll(): Promise<ServiceResponse<IAccounts[]>> {
     const accounts = await this.accountModel.getAll();
-    
+    const teste = AccountModel.create();
+    const teste2 = AccountModel.create();
+
+    console.log(teste2 === teste);
+    console.log(teste2 === this.accountModel);
     return { status: 'SUCCESSFUL', data: accounts };
   }
   

@@ -11,7 +11,6 @@ export default class AccountMiddleware {
   public validateKeys(req: Request, res: Response, next: NextFunction) {
     const account = req.body;
     const error = this.accountJOI.validateKeys(account);
-    console.log({ account, error });
     if (error) {
       return res.status(401).json(error.message);
     }

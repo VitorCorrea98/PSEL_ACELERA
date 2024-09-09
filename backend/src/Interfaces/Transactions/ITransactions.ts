@@ -1,7 +1,6 @@
-/* eslint-disable semi */
-export default interface ITransactions {
+export interface ITransactions {
   transactionId: string
-  accountId: string
+  document: string
   date: Date
   value: number
   cashback: number
