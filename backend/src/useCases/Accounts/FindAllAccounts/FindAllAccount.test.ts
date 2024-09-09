@@ -20,7 +20,6 @@ describe('first', () => {
     });
 
     const response = await sut.execute();
-    expect(response.status).toBe('SUCCESSFUL');
-    expect(response.data).toHaveLength(1);
+    expect(response).toHaveLength(1);
   });
 });

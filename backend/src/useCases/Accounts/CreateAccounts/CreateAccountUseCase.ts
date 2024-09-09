@@ -1,5 +1,4 @@
 import { Account } from '../../../entities/Account';
-import { ServiceResponse } from '../../../Interfaces/ServiceResponse';
 import { PrismaAccountRepository } from
   '../../../repositories/implementations/PrismaAccountRepository';
 import { CreateAccountDTO } from './CreateAccountDTO';
@@ -7,14 +6,14 @@ import { CreateAccountDTO } from './CreateAccountDTO';
 export class CreateAccountUseCase {
   constructor(private accountRepository: PrismaAccountRepository) {}
 
-  public async execute(data: CreateAccountDTO): Promise<ServiceResponse<Account>> {
+  public async execute(data: CreateAccountDTO): Promise<Account | string> {
     try {
       const newAccount = new Account({ ...data, status: true });
       const createdAccount = await this.accountRepository.create(newAccount);
   
-      return { status: 'SUCCESSFUL', data: createdAccount };
+      return createdAccount;
     } catch (error: any) {
-      return { status: 'INVALID_DATA', data: { message: error.message || 'Invalid data' } };
+      return 'ERRO';
     }
   }
 }
